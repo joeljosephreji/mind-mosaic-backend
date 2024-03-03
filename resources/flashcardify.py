@@ -1,10 +1,5 @@
 from flask_restful import Resource, reqparse
-import transformers
-
-
-def extract_flashcards_from_transformer(notes):
-    print(notes)
-    return notes
+from resources.transformer_functions import extract_flashcards_from_transformer
 
 class Flashcardify(Resource):
     def post(self):
@@ -14,7 +9,11 @@ class Flashcardify(Resource):
         args = parser.parse_args(strict=True)
         notes = args[name_of_notes]
 
-        returned_response = {}
-        returned_response['flashcards'] = extract_flashcards_from_transformer(notes)
-        return returned_response, 200
+        dict_to_return = {}
+        returned_value = extract_flashcards_from_transformer(notes)
+        if returned_value != "ERROR":
+            dict_to_return['flashcards'] = returned_value
+            return dict_to_return, 200
+        else:
+            return dict_to_return, 500
 
