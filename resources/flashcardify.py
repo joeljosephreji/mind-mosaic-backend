@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from resources.transformer_functions import extract_flashcards_from_transformer
+from resources.formatter import format_flashcard_string_to_dict
 
 class Flashcardify(Resource):
     def post(self):
@@ -12,7 +13,7 @@ class Flashcardify(Resource):
         dict_to_return = {}
         returned_value = extract_flashcards_from_transformer(notes)
         if returned_value != "ERROR":
-            dict_to_return['flashcards'] = returned_value
+            dict_to_return['flashcards'] = format_flashcard_string_to_dict(returned_value)
             return dict_to_return, 200
         else:
             return dict_to_return, 500
