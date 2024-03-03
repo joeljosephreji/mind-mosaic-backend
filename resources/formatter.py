@@ -9,9 +9,9 @@ def format_flashcard_string_to_dict(flashcard_string):
         list_of_components_in_flashcards = flashcard.split("\n")
         for elements in list_of_components_in_flashcards:
             if re.search("Front", elements):
-                flashcard_dict['Front'] = re.findall("\*\*Front:\*\* (.*)", elements)[0]
+                flashcard_dict['Front'] = re.findall(".*Front:.*? (.*)", elements)[0]
             if re.search("Back", elements):
-                flashcard_dict['Back'] = re.findall("\*\*Back:\*\* (.*)", elements)[0]
+                flashcard_dict['Back'] = re.findall(".*Back:.*? (.*)", elements)[0]
         flashcards.append(flashcard_dict)
                 
     print(flashcards)

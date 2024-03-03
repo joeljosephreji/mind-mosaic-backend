@@ -6,7 +6,8 @@ def extract_flashcards_from_transformer(notes):
     GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content("generate flashcards from the notes: " + notes)
+    response = model.generate_content(
+            """generate flashcards from the notes in the format as two newlines separating each flashcards and the flashcards being generated as \'Front\': and \'Back\': followed by a single line content: """ + notes)
     returned_value = ""
     try:
       returned_value = response.text
